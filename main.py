@@ -8,7 +8,7 @@ app = FastAPI()
 class item(BaseModel):
     name: str
     price: float
-    isOffer: bool | None = None  # Optional boolean field
+    isOffer: bool | None = None  # Optional boolean fiel
     email: EmailStr              # Validated email address
 
 
