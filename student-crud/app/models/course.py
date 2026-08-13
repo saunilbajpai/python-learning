@@ -7,13 +7,14 @@ from sqlalchemy import String
 if TYPE_CHECKING:
     from app.models.student import Student
 
-class course(Base):
+class Course(Base):
     __tablename__ = "courses"
     
     id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(String(100),nullable=False)
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
     students: Mapped[list["Student"]] = relationship(
         secondary=student_courses,
         back_populates="enrolled_courses",
+        lazy="selectin",
     )
 

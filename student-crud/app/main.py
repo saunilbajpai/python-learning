@@ -1,18 +1,21 @@
 from fastapi import FastAPI
-from sqlalchemy import text
-from app.database import engine
 
-app = FastAPI()
+from app.routers.student import router as student_router
+from app.routers.course import router as course_router
+
+
+app = FastAPI(
+    title="Student CRUD API",
+    version="1.0.0",
+)
+
+
+app.include_router(student_router)
+app.include_router(course_router)
 
 
 @app.get("/")
 async def root():
-    return {"message": "FastAPI is working"}
-
-
-@app.get("/test-db")
-async def test_db():
-    async with engine.connect() as connection:
-        result = await connection.execute(text("SELECT 1"))
-
-    return {"database": result.scalar()}
+    return {
+        "message": "Student CRUD API is running"
+    }
